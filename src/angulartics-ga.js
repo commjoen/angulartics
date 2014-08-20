@@ -26,7 +26,7 @@
       });
 
       /**
-       * Track Event in GA (if you use window.ga, then you get
+       * Track Event in GA (if you use window.ga (analyticsjs), then you get a promise in return)
        * @name eventTrack
        *
        * @param {string} action Required 'action' (string) associated with the event
@@ -48,34 +48,8 @@
         if (window._gaq) {
           _gaq.push(['_trackEvent', properties.category, action, properties.label, properties.value, properties.noninteraction]);
         }
+
         else if (window.ga) {
-          if (properties.noninteraction) {
-            ga('send', 'event', properties.category, action, properties.label, properties.value, {nonInteraction: 1});
-          } else {
-            ga('send', 'event', properties.category, action, properties.label, properties.value);
-          }
-        }
-      });
-
-      /**
-       * Track Event in GA (in prototype stage!)
-       * @name eventTrackAndWait
-       *
-       * @param {string} action Required 'action' (string) associated with the event
-       * @param {object} properties Comprised of the mandatory field 'category' (string) and optional  fields 'label' (string), 'value' (integer) and 'noninteraction' (boolean)
-       *
-       * currently only supports ga!!!
-       */
-      $analyticsProvider.registerEventTrackAndWait(function (action, properties){
-        // GA requires that eventValue be an integer, see:
-        // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#eventValue
-        // https://github.com/luisfarzati/angulartics/issues/81
-        if (properties.value) {
-          var parsed = parseInt(properties.value, 10);
-          properties.value = isNaN(parsed) ? 0 : parsed;
-        }
-
-        if (window.ga) {
           var deferred = $q.defer();
           if (properties.noninteraction) {
             ga('send', 'event', {
@@ -109,5 +83,6 @@
           return deferred.promise;
         }
       });
+
     }]);
 })(angular);
