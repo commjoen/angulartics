@@ -26,7 +26,7 @@
       });
 
       /**
-       * Track Event in GA
+       * Track Event in GA (if you use window.ga, then you get
        * @name eventTrack
        *
        * @param {string} action Required 'action' (string) associated with the event
