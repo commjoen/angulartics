@@ -46,7 +46,8 @@ angular.module('angulartics', [])
     'setUserProperties',
     'setUserPropertiesOnce',
     'setSuperProperties',
-    'setSuperPropertiesOnce'
+    'setSuperPropertiesOnce',
+    'eventTrackAndWait'
   ];
   // Cache and handler properties will match values in 'knownHandlers' as the buffering functons are installed.
   var cache = {};
